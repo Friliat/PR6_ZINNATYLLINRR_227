@@ -1,0 +1,1859 @@
+--
+-- PostgreSQL database cluster dump
+--
+
+-- Started on 2024-12-25 21:28:12
+
+SET default_transaction_read_only = off;
+
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+
+--
+-- Roles
+--
+
+CREATE ROLE postgres;
+ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION BYPASSRLS;
+
+--
+-- User Configurations
+--
+
+
+
+
+
+
+
+
+--
+-- Databases
+--
+
+--
+-- Database "template1" dump
+--
+
+\connect template1
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 17.0
+-- Dumped by pg_dump version 17.0
+
+-- Started on 2024-12-25 21:28:12
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+-- Completed on 2024-12-25 21:28:12
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- Database "Andrei_i_tocka" dump
+--
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 17.0
+-- Dumped by pg_dump version 17.0
+
+-- Started on 2024-12-25 21:28:13
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 4832 (class 1262 OID 18106)
+-- Name: Andrei_i_tocka; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE "Andrei_i_tocka" WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'Russian_Russia.1251';
+
+
+ALTER DATABASE "Andrei_i_tocka" OWNER TO postgres;
+
+\connect "Andrei_i_tocka"
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 5 (class 2615 OID 2200)
+-- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+-- *not* creating schema, since initdb creates it
+
+
+ALTER SCHEMA public OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 217 (class 1259 OID 18107)
+-- Name: dolsnost; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dolsnost (
+    id integer NOT NULL,
+    name_dolsnost character varying(30),
+    zarplata integer
+);
+
+
+ALTER TABLE public.dolsnost OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 18110)
+-- Name: katalog; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.katalog (
+    id integer NOT NULL,
+    name_bluda character varying(30),
+    kol_gram integer,
+    id_product integer,
+    cell integer
+);
+
+
+ALTER TABLE public.katalog OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 18113)
+-- Name: postavsik; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.postavsik (
+    id integer NOT NULL,
+    name_postavsik character varying(25),
+    id_product integer,
+    cell integer
+);
+
+
+ALTER TABLE public.postavsik OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 18116)
+-- Name: products; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.products (
+    id integer NOT NULL,
+    name_product character varying(30),
+    kolihecstvo integer,
+    cell integer
+);
+
+
+ALTER TABLE public.products OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 18119)
+-- Name: rabocie; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.rabocie (
+    id integer NOT NULL,
+    fio character varying(30),
+    id_dolsnost integer
+);
+
+
+ALTER TABLE public.rabocie OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 18122)
+-- Name: zakaz; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.zakaz (
+    id integer NOT NULL,
+    id_kataloga integer,
+    kol integer,
+    cell integer
+);
+
+
+ALTER TABLE public.zakaz OWNER TO postgres;
+
+--
+-- TOC entry 4821 (class 0 OID 18107)
+-- Dependencies: 217
+-- Data for Name: dolsnost; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dolsnost (id, name_dolsnost, zarplata) FROM stdin;
+1	Менеджер	20000
+2	Повар	30000
+3	Кассир	12000
+\.
+
+
+--
+-- TOC entry 4822 (class 0 OID 18110)
+-- Dependencies: 218
+-- Data for Name: katalog; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.katalog (id, name_bluda, kol_gram, id_product, cell) FROM stdin;
+1	Картошка фри	300	1	200
+2	Бургер	500	3	300
+3	Картошка по деревенски	300	1	130
+4	Салат	200	2	200
+\.
+
+
+--
+-- TOC entry 4823 (class 0 OID 18113)
+-- Dependencies: 219
+-- Data for Name: postavsik; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.postavsik (id, name_postavsik, id_product, cell) FROM stdin;
+1	Сима-Ленд	1	5000
+2	Woost	3	2999
+3	Миракс	2	9999
+5	DNK	5	3500
+4	ENS GROUP	4	6000
+\.
+
+
+--
+-- TOC entry 4824 (class 0 OID 18116)
+-- Dependencies: 220
+-- Data for Name: products; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.products (id, name_product, kolihecstvo, cell) FROM stdin;
+5	Специи	30	6000
+1	Картошка	30	2000
+2	Помидоры	30	3000
+3	Хлеб	30	4444
+4	Огурцы	30	2888
+\.
+
+
+--
+-- TOC entry 4825 (class 0 OID 18119)
+-- Dependencies: 221
+-- Data for Name: rabocie; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.rabocie (id, fio, id_dolsnost) FROM stdin;
+1	Федотов Алексей Станиславович	1
+2	Егорова Варвара Алексеевна\n	2
+3	Котов Герман Григорьевич\n	2
+4	Шевелев Ярослав Антонович\n	3
+\.
+
+
+--
+-- TOC entry 4826 (class 0 OID 18122)
+-- Dependencies: 222
+-- Data for Name: zakaz; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.zakaz (id, id_kataloga, kol, cell) FROM stdin;
+1	1	3	600
+2	2	2	600
+3	4	1	200
+\.
+
+
+--
+-- TOC entry 4661 (class 2606 OID 18126)
+-- Name: dolsnost dolsnost_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dolsnost
+    ADD CONSTRAINT dolsnost_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4663 (class 2606 OID 18128)
+-- Name: katalog katalog_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.katalog
+    ADD CONSTRAINT katalog_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4665 (class 2606 OID 18130)
+-- Name: postavsik postavsik_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.postavsik
+    ADD CONSTRAINT postavsik_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4667 (class 2606 OID 18132)
+-- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT products_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4669 (class 2606 OID 18134)
+-- Name: rabocie rabocie_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rabocie
+    ADD CONSTRAINT rabocie_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4671 (class 2606 OID 18136)
+-- Name: zakaz zakaz_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.zakaz
+    ADD CONSTRAINT zakaz_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4672 (class 2606 OID 18137)
+-- Name: katalog katalog_products_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.katalog
+    ADD CONSTRAINT katalog_products_fk FOREIGN KEY (id_product) REFERENCES public.products(id);
+
+
+--
+-- TOC entry 4673 (class 2606 OID 18142)
+-- Name: postavsik postavsik_id_product_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.postavsik
+    ADD CONSTRAINT postavsik_id_product_fkey FOREIGN KEY (id_product) REFERENCES public.products(id);
+
+
+--
+-- TOC entry 4674 (class 2606 OID 18147)
+-- Name: rabocie rabocie_id_dolsnost_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rabocie
+    ADD CONSTRAINT rabocie_id_dolsnost_fkey FOREIGN KEY (id_dolsnost) REFERENCES public.dolsnost(id);
+
+
+--
+-- TOC entry 4675 (class 2606 OID 18152)
+-- Name: zakaz zakaz_id_kataloga_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.zakaz
+    ADD CONSTRAINT zakaz_id_kataloga_fkey FOREIGN KEY (id_kataloga) REFERENCES public.katalog(id);
+
+
+-- Completed on 2024-12-25 21:28:13
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- Database "Hospitol" dump
+--
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 17.0
+-- Dumped by pg_dump version 17.0
+
+-- Started on 2024-12-25 21:28:14
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 4825 (class 1262 OID 16464)
+-- Name: Hospitol; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE "Hospitol" WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'Russian_Russia.1251';
+
+
+ALTER DATABASE "Hospitol" OWNER TO postgres;
+
+\connect "Hospitol"
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 220 (class 1259 OID 16475)
+-- Name: doctors; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.doctors (
+    id_doctor integer NOT NULL,
+    fio character varying,
+    specialnost character varying,
+    "Cost" integer,
+    allocation integer
+);
+
+
+ALTER TABLE public.doctors OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 16474)
+-- Name: doctors_id_doctor_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.doctors_id_doctor_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.doctors_id_doctor_seq OWNER TO postgres;
+
+--
+-- TOC entry 4826 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: doctors_id_doctor_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.doctors_id_doctor_seq OWNED BY public.doctors.id_doctor;
+
+
+--
+-- TOC entry 218 (class 1259 OID 16466)
+-- Name: patient; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.patient (
+    id_patient integer NOT NULL,
+    name_patient character varying,
+    firstname_patient character varying,
+    patronymic character varying,
+    dateofbirdthey date,
+    address character varying
+);
+
+
+ALTER TABLE public.patient OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 16465)
+-- Name: patient_id_patient_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.patient_id_patient_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.patient_id_patient_seq OWNER TO postgres;
+
+--
+-- TOC entry 4827 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: patient_id_patient_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.patient_id_patient_seq OWNED BY public.patient.id_patient;
+
+
+--
+-- TOC entry 221 (class 1259 OID 16483)
+-- Name: reception; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.reception (
+    id_reception character varying NOT NULL,
+    doctor_id integer,
+    pacient_id integer,
+    date_reseption date
+);
+
+
+ALTER TABLE public.reception OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 17211)
+-- Name: zarplata; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW public.zarplata AS
+ SELECT fio,
+    specialnost,
+    "Cost",
+    allocation,
+    ("Cost" * allocation) AS zarplata
+   FROM public.doctors;
+
+
+ALTER VIEW public.zarplata OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 17215)
+-- Name: zarplata_posle; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW public.zarplata_posle AS
+ SELECT fio,
+    specialnost,
+    "Cost",
+    allocation,
+    ((zarplata)::numeric - ((zarplata)::numeric * 0.13)) AS zarplata
+   FROM public.zarplata;
+
+
+ALTER VIEW public.zarplata_posle OWNER TO postgres;
+
+--
+-- TOC entry 4659 (class 2604 OID 16478)
+-- Name: doctors id_doctor; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctors ALTER COLUMN id_doctor SET DEFAULT nextval('public.doctors_id_doctor_seq'::regclass);
+
+
+--
+-- TOC entry 4658 (class 2604 OID 16469)
+-- Name: patient id_patient; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.patient ALTER COLUMN id_patient SET DEFAULT nextval('public.patient_id_patient_seq'::regclass);
+
+
+--
+-- TOC entry 4818 (class 0 OID 16475)
+-- Dependencies: 220
+-- Data for Name: doctors; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.doctors (id_doctor, fio, specialnost, "Cost", allocation) FROM stdin;
+1	Анна Сергеевна Петрова 	Кардиолог	1500	15
+2	Дмитрий Александрович Смирнов	Ортопед	2000	15
+3	Елена Викторовна Кузнецова	Дерматолог	2200	15
+4	Сергей Николаевич Иванов	Гастроэнтеролог	1200	15
+5	Мария Андреевна Лебедева	Педиатр	3000	15
+6	Алексей Валерьевич Сидоров	Невролог	1200	15
+7	Ольга Дмитриевна Федорова	Эндокринолог	4500	15
+8	Игорь Павлович Михайлов	Травматолог	3200	15
+9	Наталья Борисовна Григорьева	Психиатр	4400	15
+10	Владимир Юрьевич Соловьев	Офтальмолог	4100	15
+\.
+
+
+--
+-- TOC entry 4816 (class 0 OID 16466)
+-- Dependencies: 218
+-- Data for Name: patient; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.patient (id_patient, name_patient, firstname_patient, patronymic, dateofbirdthey, address) FROM stdin;
+1	Владимир 	Александрович 	Смирнов 	2024-11-05	Улица Солнечная 1
+2	Елена 	Дмитриевна 	Лебедева 	2024-11-05	Проспект Мира 2
+3	Алексей 	Иванов	Сидоров 	2024-11-05	Улица Небесная 3
+4	Анна 	Дмитриевна 	Петрова 	2024-11-05	 Бульвар Улыбок 4
+5	Сергей 	Валерьевич 	Михайлов 	2024-11-05	Улица Творческая 5
+6	Наталья 	Андреевна 	Кузнецова 	2024-11-05	Улица Зелёная 22
+7	Игорь 	Александрович 	Григорьев	2024-11-05	Улица Строителей 13
+8	Анастасия	Юрьевна	Федорова 	2024-11-05	Улица Гоголя 23
+9	Мария	Сергеевна	Петрова 	2024-11-05	Улица Модельная 14
+10	Иван	Николаевич 	Соловьев 	2024-11-05	Улица Березовая 11
+\.
+
+
+--
+-- TOC entry 4819 (class 0 OID 16483)
+-- Dependencies: 221
+-- Data for Name: reception; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.reception (id_reception, doctor_id, pacient_id, date_reseption) FROM stdin;
+2	5	4	2024-11-05
+3	1	3	2024-11-05
+4	3	2	2024-11-05
+5	6	10	2024-11-05
+6	10	9	2024-11-05
+7	9	7	2024-11-05
+8	8	6	2024-11-05
+9	4	8	2024-11-05
+10	7	5	2024-11-05
+1	2	1	2024-11-05
+\.
+
+
+--
+-- TOC entry 4828 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: doctors_id_doctor_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.doctors_id_doctor_seq', 10, true);
+
+
+--
+-- TOC entry 4829 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: patient_id_patient_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.patient_id_patient_seq', 10, true);
+
+
+--
+-- TOC entry 4661 (class 2606 OID 16473)
+-- Name: patient patient_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.patient
+    ADD CONSTRAINT patient_pk PRIMARY KEY (id_patient);
+
+
+--
+-- TOC entry 4665 (class 2606 OID 16489)
+-- Name: reception reception_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.reception
+    ADD CONSTRAINT reception_pk PRIMARY KEY (id_reception);
+
+
+--
+-- TOC entry 4663 (class 2606 OID 16482)
+-- Name: doctors врачи_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctors
+    ADD CONSTRAINT "врачи_pk" PRIMARY KEY (id_doctor);
+
+
+--
+-- TOC entry 4666 (class 2606 OID 16496)
+-- Name: reception reception_doctors_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.reception
+    ADD CONSTRAINT reception_doctors_fk FOREIGN KEY (doctor_id) REFERENCES public.doctors(id_doctor) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4667 (class 2606 OID 16501)
+-- Name: reception reception_patient_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.reception
+    ADD CONSTRAINT reception_patient_fk FOREIGN KEY (pacient_id) REFERENCES public.patient(id_patient) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+-- Completed on 2024-12-25 21:28:15
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- Database "TT" dump
+--
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 17.0
+-- Dumped by pg_dump version 17.0
+
+-- Started on 2024-12-25 21:28:15
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 4832 (class 1262 OID 17903)
+-- Name: TT; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE "TT" WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'Russian_Russia.1251';
+
+
+ALTER DATABASE "TT" OWNER TO postgres;
+
+\connect "TT"
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 5 (class 2615 OID 2200)
+-- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+-- *not* creating schema, since initdb creates it
+
+
+ALTER SCHEMA public OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 217 (class 1259 OID 17904)
+-- Name: dolsnost; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.dolsnost (
+    id integer NOT NULL,
+    name_dolsnost character varying(30),
+    zarplata integer
+);
+
+
+ALTER TABLE public.dolsnost OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 17907)
+-- Name: katalog; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.katalog (
+    id integer NOT NULL,
+    name_bluda character varying(30),
+    kol_gram integer,
+    id_product integer,
+    cell integer
+);
+
+
+ALTER TABLE public.katalog OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 17910)
+-- Name: postavsik; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.postavsik (
+    id integer NOT NULL,
+    name_postavsik character varying(25),
+    id_product integer,
+    cell integer
+);
+
+
+ALTER TABLE public.postavsik OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 17913)
+-- Name: products; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.products (
+    id integer NOT NULL,
+    name_product character varying(30),
+    kolihecstvo integer,
+    cell integer
+);
+
+
+ALTER TABLE public.products OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 17916)
+-- Name: rabocie; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.rabocie (
+    id integer NOT NULL,
+    fio character varying(30),
+    id_dolsnost integer
+);
+
+
+ALTER TABLE public.rabocie OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 17919)
+-- Name: zakaz; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.zakaz (
+    id integer NOT NULL,
+    id_kataloga integer,
+    kol integer,
+    cell integer
+);
+
+
+ALTER TABLE public.zakaz OWNER TO postgres;
+
+--
+-- TOC entry 4821 (class 0 OID 17904)
+-- Dependencies: 217
+-- Data for Name: dolsnost; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.dolsnost (id, name_dolsnost, zarplata) FROM stdin;
+1	Менеджер	20000
+2	Повар	30000
+3	Кассир	12000
+\.
+
+
+--
+-- TOC entry 4822 (class 0 OID 17907)
+-- Dependencies: 218
+-- Data for Name: katalog; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.katalog (id, name_bluda, kol_gram, id_product, cell) FROM stdin;
+1	Картошка фри	300	1	200
+2	Бургер	500	3	300
+3	Картошка по деревенски	300	1	130
+4	Салат	200	2	200
+\.
+
+
+--
+-- TOC entry 4823 (class 0 OID 17910)
+-- Dependencies: 219
+-- Data for Name: postavsik; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.postavsik (id, name_postavsik, id_product, cell) FROM stdin;
+1	Сима-Ленд	1	5000
+2	Woost	3	2999
+3	Миракс	2	9999
+5	DNK	5	3500
+4	ENS GROUP	4	6000
+\.
+
+
+--
+-- TOC entry 4824 (class 0 OID 17913)
+-- Dependencies: 220
+-- Data for Name: products; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.products (id, name_product, kolihecstvo, cell) FROM stdin;
+5	Специи	30	6000
+1	Картошка	30	2000
+2	Помидоры	30	3000
+3	Хлеб	30	4444
+4	Огурцы	30	2888
+\.
+
+
+--
+-- TOC entry 4825 (class 0 OID 17916)
+-- Dependencies: 221
+-- Data for Name: rabocie; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.rabocie (id, fio, id_dolsnost) FROM stdin;
+1	Федотов Алексей Станиславович	1
+2	Егорова Варвара Алексеевна\n	2
+3	Котов Герман Григорьевич\n	2
+4	Шевелев Ярослав Антонович\n	3
+\.
+
+
+--
+-- TOC entry 4826 (class 0 OID 17919)
+-- Dependencies: 222
+-- Data for Name: zakaz; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.zakaz (id, id_kataloga, kol, cell) FROM stdin;
+1	1	3	600
+2	2	2	600
+3	4	1	200
+\.
+
+
+--
+-- TOC entry 4661 (class 2606 OID 17923)
+-- Name: dolsnost dolsnost_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.dolsnost
+    ADD CONSTRAINT dolsnost_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4663 (class 2606 OID 17925)
+-- Name: katalog katalog_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.katalog
+    ADD CONSTRAINT katalog_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4665 (class 2606 OID 17927)
+-- Name: postavsik postavsik_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.postavsik
+    ADD CONSTRAINT postavsik_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4667 (class 2606 OID 17929)
+-- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT products_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4669 (class 2606 OID 17931)
+-- Name: rabocie rabocie_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rabocie
+    ADD CONSTRAINT rabocie_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4671 (class 2606 OID 17933)
+-- Name: zakaz zakaz_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.zakaz
+    ADD CONSTRAINT zakaz_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4672 (class 2606 OID 17934)
+-- Name: katalog katalog_products_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.katalog
+    ADD CONSTRAINT katalog_products_fk FOREIGN KEY (id_product) REFERENCES public.products(id);
+
+
+--
+-- TOC entry 4673 (class 2606 OID 17939)
+-- Name: postavsik postavsik_id_product_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.postavsik
+    ADD CONSTRAINT postavsik_id_product_fkey FOREIGN KEY (id_product) REFERENCES public.products(id);
+
+
+--
+-- TOC entry 4674 (class 2606 OID 17944)
+-- Name: rabocie rabocie_id_dolsnost_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.rabocie
+    ADD CONSTRAINT rabocie_id_dolsnost_fkey FOREIGN KEY (id_dolsnost) REFERENCES public.dolsnost(id);
+
+
+--
+-- TOC entry 4675 (class 2606 OID 17949)
+-- Name: zakaz zakaz_id_kataloga_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.zakaz
+    ADD CONSTRAINT zakaz_id_kataloga_fkey FOREIGN KEY (id_kataloga) REFERENCES public.katalog(id);
+
+
+-- Completed on 2024-12-25 21:28:16
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- Database "Zin" dump
+--
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 17.0
+-- Dumped by pg_dump version 17.0
+
+-- Started on 2024-12-25 21:28:16
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 4845 (class 1262 OID 16384)
+-- Name: Zin; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE "Zin" WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'Russian_Russia.1251';
+
+
+ALTER DATABASE "Zin" OWNER TO postgres;
+
+\connect "Zin"
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 218 (class 1259 OID 16395)
+-- Name: actors; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.actors (
+    id integer NOT NULL,
+    name_actors character varying,
+    birthyear integer,
+    strana character varying,
+    bigrafia character varying
+);
+
+
+ALTER TABLE public.actors OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 16402)
+-- Name: cinema; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.cinema (
+    id integer NOT NULL,
+    name_cinema character varying,
+    gorod character varying,
+    year_poivlenia integer,
+    kol_zalov integer,
+    id_movies integer NOT NULL
+);
+
+
+ALTER TABLE public.cinema OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 16511)
+-- Name: doctors; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.doctors (
+    id_doctor integer NOT NULL,
+    fio character varying,
+    specialnost character varying,
+    "Cost" integer,
+    allocation integer
+);
+
+
+ALTER TABLE public.doctors OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 16508)
+-- Name: doctors_id_doctor_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.doctors_id_doctor_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER SEQUENCE public.doctors_id_doctor_seq OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 16510)
+-- Name: doctors_id_doctor_seq1; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.doctors_id_doctor_seq1
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.doctors_id_doctor_seq1 OWNER TO postgres;
+
+--
+-- TOC entry 4846 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: doctors_id_doctor_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.doctors_id_doctor_seq1 OWNED BY public.doctors.id_doctor;
+
+
+--
+-- TOC entry 217 (class 1259 OID 16388)
+-- Name: movies; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.movies (
+    id integer NOT NULL,
+    name_movies character varying,
+    genre character varying,
+    "Year" integer,
+    actorid integer NOT NULL
+);
+
+
+ALTER TABLE public.movies OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 16520)
+-- Name: patient; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.patient (
+    id_patient integer NOT NULL,
+    name_patient character varying,
+    firstname_patient character varying,
+    patronymic character varying,
+    dateofbirdthey date,
+    address character varying
+);
+
+
+ALTER TABLE public.patient OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 16509)
+-- Name: patient_id_patient_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.patient_id_patient_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER SEQUENCE public.patient_id_patient_seq OWNER TO postgres;
+
+--
+-- TOC entry 224 (class 1259 OID 16519)
+-- Name: patient_id_patient_seq1; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.patient_id_patient_seq1
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.patient_id_patient_seq1 OWNER TO postgres;
+
+--
+-- TOC entry 4847 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: patient_id_patient_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.patient_id_patient_seq1 OWNED BY public.patient.id_patient;
+
+
+--
+-- TOC entry 226 (class 1259 OID 16528)
+-- Name: reception; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.reception (
+    id_reception character varying NOT NULL,
+    doctor_id integer,
+    pacient_id integer,
+    date_reseption date
+);
+
+
+ALTER TABLE public.reception OWNER TO postgres;
+
+--
+-- TOC entry 227 (class 1259 OID 17207)
+-- Name: zarplata; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW public.zarplata AS
+ SELECT fio,
+    specialnost,
+    "Cost",
+    allocation,
+    ("Cost" * allocation) AS zarplata
+   FROM public.doctors;
+
+
+ALTER VIEW public.zarplata OWNER TO postgres;
+
+--
+-- TOC entry 4668 (class 2604 OID 16514)
+-- Name: doctors id_doctor; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctors ALTER COLUMN id_doctor SET DEFAULT nextval('public.doctors_id_doctor_seq1'::regclass);
+
+
+--
+-- TOC entry 4669 (class 2604 OID 16523)
+-- Name: patient id_patient; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.patient ALTER COLUMN id_patient SET DEFAULT nextval('public.patient_id_patient_seq1'::regclass);
+
+
+--
+-- TOC entry 4831 (class 0 OID 16395)
+-- Dependencies: 218
+-- Data for Name: actors; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.actors (id, name_actors, birthyear, strana, bigrafia) FROM stdin;
+1	Леонардо ДиКаприо	1974	Америка	Родился в 1974
+2	Джонни Депп 	1963	Америка	Родился в 1963
+3	Киану Ривз  	1964	Канада	Родился в 1964
+4	Кейт Уинслет	1975	Британия	Родилась в 1975
+5	Элайджа Вуд	1981	Америка	Родилась в 1981
+\.
+
+
+--
+-- TOC entry 4832 (class 0 OID 16402)
+-- Dependencies: 219
+-- Data for Name: cinema; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.cinema (id, name_cinema, gorod, year_poivlenia, kol_zalov, id_movies) FROM stdin;
+1	Победа	Москва	2001	6	4
+3	Дубль три	Казань	2000	4	2
+4	Романов	Зеленодольск	2020	2	5
+5	Кино Хауз	Омск	1999	1	1
+2	Иллюзион	Пeтербург	2012	3	3
+\.
+
+
+--
+-- TOC entry 4836 (class 0 OID 16511)
+-- Dependencies: 223
+-- Data for Name: doctors; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.doctors (id_doctor, fio, specialnost, "Cost", allocation) FROM stdin;
+1	Анна Сергеевна Петрова 	Кардиолог	1500	15
+2	Дмитрий Александрович Смирнов	Ортопед	2000	15
+3	Елена Викторовна Кузнецова	Дерматолог	2200	15
+4	Сергей Николаевич Иванов	Гастроэнтеролог	1200	15
+5	Мария Андреевна Лебедева	Педиатр	3000	15
+6	Алексей Валерьевич Сидоров	Невролог	1200	15
+7	Ольга Дмитриевна Федорова	Эндокринолог	4500	15
+8	Игорь Павлович Михайлов	Травматолог	3200	15
+9	Наталья Борисовна Григорьева	Психиатр	4400	15
+10	Владимир Юрьевич Соловьев	Офтальмолог	4100	15
+\.
+
+
+--
+-- TOC entry 4830 (class 0 OID 16388)
+-- Dependencies: 217
+-- Data for Name: movies; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.movies (id, name_movies, genre, "Year", actorid) FROM stdin;
+1	Титаник	драма 	1997	1
+2	Пираты Карибского моря	Приключенческий 	2003	2
+3	Матрица	Научная фантастика |	1999	4
+4	Властелин колец	Фэнтези	2001	3
+5	Начало	Научная фантастика	2010	5
+\.
+
+
+--
+-- TOC entry 4838 (class 0 OID 16520)
+-- Dependencies: 225
+-- Data for Name: patient; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.patient (id_patient, name_patient, firstname_patient, patronymic, dateofbirdthey, address) FROM stdin;
+1	Владимир 	Александрович 	Смирнов 	2024-11-05	Улица Солнечная 1
+2	Елена 	Дмитриевна 	Лебедева 	2024-11-05	Проспект Мира 2
+3	Алексей 	Иванов	Сидоров 	2024-11-05	Улица Небесная 3
+4	Анна 	Дмитриевна 	Петрова 	2024-11-05	 Бульвар Улыбок 4
+5	Сергей 	Валерьевич 	Михайлов 	2024-11-05	Улица Творческая 5
+6	Наталья 	Андреевна 	Кузнецова 	2024-11-05	Улица Зелёная 22
+7	Игорь 	Александрович 	Григорьев	2024-11-05	Улица Строителей 13
+8	Анастасия	Юрьевна	Федорова 	2024-11-05	Улица Гоголя 23
+9	Мария	Сергеевна	Петрова 	2024-11-05	Улица Модельная 14
+10	Иван	Николаевич 	Соловьев 	2024-11-05	Улица Березовая 11
+\.
+
+
+--
+-- TOC entry 4839 (class 0 OID 16528)
+-- Dependencies: 226
+-- Data for Name: reception; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.reception (id_reception, doctor_id, pacient_id, date_reseption) FROM stdin;
+2	5	4	2024-11-05
+3	1	3	2024-11-05
+4	3	2	2024-11-05
+5	6	10	2024-11-05
+6	10	9	2024-11-05
+7	9	7	2024-11-05
+8	8	6	2024-11-05
+9	4	8	2024-11-05
+10	7	5	2024-11-05
+1	2	1	2024-11-05
+\.
+
+
+--
+-- TOC entry 4848 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: doctors_id_doctor_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.doctors_id_doctor_seq', 1, false);
+
+
+--
+-- TOC entry 4849 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: doctors_id_doctor_seq1; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.doctors_id_doctor_seq1', 1, false);
+
+
+--
+-- TOC entry 4850 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: patient_id_patient_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.patient_id_patient_seq', 1, false);
+
+
+--
+-- TOC entry 4851 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: patient_id_patient_seq1; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.patient_id_patient_seq1', 1, false);
+
+
+--
+-- TOC entry 4673 (class 2606 OID 16401)
+-- Name: actors actors_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.actors
+    ADD CONSTRAINT actors_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4675 (class 2606 OID 16408)
+-- Name: cinema cinema_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.cinema
+    ADD CONSTRAINT cinema_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4671 (class 2606 OID 16394)
+-- Name: movies movies_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.movies
+    ADD CONSTRAINT movies_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4679 (class 2606 OID 16527)
+-- Name: patient patient_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.patient
+    ADD CONSTRAINT patient_pk PRIMARY KEY (id_patient);
+
+
+--
+-- TOC entry 4681 (class 2606 OID 16534)
+-- Name: reception reception_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.reception
+    ADD CONSTRAINT reception_pk PRIMARY KEY (id_reception);
+
+
+--
+-- TOC entry 4677 (class 2606 OID 16518)
+-- Name: doctors врачи_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctors
+    ADD CONSTRAINT "врачи_pk" PRIMARY KEY (id_doctor);
+
+
+--
+-- TOC entry 4682 (class 2606 OID 16535)
+-- Name: reception reception_doctors_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.reception
+    ADD CONSTRAINT reception_doctors_fk FOREIGN KEY (doctor_id) REFERENCES public.doctors(id_doctor) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4683 (class 2606 OID 16540)
+-- Name: reception reception_patient_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.reception
+    ADD CONSTRAINT reception_patient_fk FOREIGN KEY (pacient_id) REFERENCES public.patient(id_patient) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+-- Completed on 2024-12-25 21:28:17
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- Database "Zinnatyllin_227" dump
+--
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 17.0
+-- Dumped by pg_dump version 17.0
+
+-- Started on 2024-12-25 21:28:17
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 4818 (class 1262 OID 16753)
+-- Name: Zinnatyllin_227; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE "Zinnatyllin_227" WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'Russian_Russia.1251';
+
+
+ALTER DATABASE "Zinnatyllin_227" OWNER TO postgres;
+
+\connect "Zinnatyllin_227"
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 222 (class 1259 OID 17073)
+-- Name: zinnatyllin_227_orders; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.zinnatyllin_227_orders (
+    id_order integer NOT NULL,
+    id_shop integer NOT NULL,
+    id_product integer NOT NULL,
+    count integer NOT NULL,
+    date_order date
+);
+
+
+ALTER TABLE public.zinnatyllin_227_orders OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 17072)
+-- Name: zinnatyllin_227_orders_id_order_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.zinnatyllin_227_orders_id_order_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.zinnatyllin_227_orders_id_order_seq OWNER TO postgres;
+
+--
+-- TOC entry 4819 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: zinnatyllin_227_orders_id_order_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.zinnatyllin_227_orders_id_order_seq OWNED BY public.zinnatyllin_227_orders.id_order;
+
+
+--
+-- TOC entry 220 (class 1259 OID 17064)
+-- Name: zinnatyllin_227_products; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.zinnatyllin_227_products (
+    id_product integer NOT NULL,
+    product_name character varying NOT NULL,
+    count_product integer NOT NULL,
+    price money
+);
+
+
+ALTER TABLE public.zinnatyllin_227_products OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 17063)
+-- Name: zinnatyllin_227_product_id_product_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.zinnatyllin_227_product_id_product_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.zinnatyllin_227_product_id_product_seq OWNER TO postgres;
+
+--
+-- TOC entry 4820 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: zinnatyllin_227_product_id_product_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.zinnatyllin_227_product_id_product_seq OWNED BY public.zinnatyllin_227_products.id_product;
+
+
+--
+-- TOC entry 218 (class 1259 OID 16755)
+-- Name: zinnatyllin_227_shop; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.zinnatyllin_227_shop (
+    id_shop integer NOT NULL,
+    stote_name character varying NOT NULL,
+    address character varying,
+    phone character varying,
+    contact_person character varying
+);
+
+
+ALTER TABLE public.zinnatyllin_227_shop OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 16754)
+-- Name: zinnatyllin_227_shop_id_shop_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.zinnatyllin_227_shop_id_shop_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.zinnatyllin_227_shop_id_shop_seq OWNER TO postgres;
+
+--
+-- TOC entry 4821 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: zinnatyllin_227_shop_id_shop_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.zinnatyllin_227_shop_id_shop_seq OWNED BY public.zinnatyllin_227_shop.id_shop;
+
+
+--
+-- TOC entry 4653 (class 2604 OID 17076)
+-- Name: zinnatyllin_227_orders id_order; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.zinnatyllin_227_orders ALTER COLUMN id_order SET DEFAULT nextval('public.zinnatyllin_227_orders_id_order_seq'::regclass);
+
+
+--
+-- TOC entry 4652 (class 2604 OID 17067)
+-- Name: zinnatyllin_227_products id_product; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.zinnatyllin_227_products ALTER COLUMN id_product SET DEFAULT nextval('public.zinnatyllin_227_product_id_product_seq'::regclass);
+
+
+--
+-- TOC entry 4651 (class 2604 OID 16758)
+-- Name: zinnatyllin_227_shop id_shop; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.zinnatyllin_227_shop ALTER COLUMN id_shop SET DEFAULT nextval('public.zinnatyllin_227_shop_id_shop_seq'::regclass);
+
+
+--
+-- TOC entry 4812 (class 0 OID 17073)
+-- Dependencies: 222
+-- Data for Name: zinnatyllin_227_orders; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.zinnatyllin_227_orders (id_order, id_shop, id_product, count, date_order) FROM stdin;
+1	1	2	1	2024-10-27
+2	2	1	1	2024-10-27
+\.
+
+
+--
+-- TOC entry 4810 (class 0 OID 17064)
+-- Dependencies: 220
+-- Data for Name: zinnatyllin_227_products; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.zinnatyllin_227_products (id_product, product_name, count_product, price) FROM stdin;
+1	Компютерная мышь	8	450,00 ?
+2	Клавиатура	12	900,00 ?
+3	Коврик	100	299,00 ?
+\.
+
+
+--
+-- TOC entry 4808 (class 0 OID 16755)
+-- Dependencies: 218
+-- Data for Name: zinnatyllin_227_shop; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.zinnatyllin_227_shop (id_shop, stote_name, address, phone, contact_person) FROM stdin;
+1	Мир компьютеров	Энгельса	89872241239	Иванов Павел
+2	Электроник	Ленина	89123012143	Васильев Алексей
+\.
+
+
+--
+-- TOC entry 4822 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: zinnatyllin_227_orders_id_order_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.zinnatyllin_227_orders_id_order_seq', 2, true);
+
+
+--
+-- TOC entry 4823 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: zinnatyllin_227_product_id_product_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.zinnatyllin_227_product_id_product_seq', 3, true);
+
+
+--
+-- TOC entry 4824 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: zinnatyllin_227_shop_id_shop_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.zinnatyllin_227_shop_id_shop_seq', 2, true);
+
+
+--
+-- TOC entry 4659 (class 2606 OID 17078)
+-- Name: zinnatyllin_227_orders zinnatyllin_227_orders_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.zinnatyllin_227_orders
+    ADD CONSTRAINT zinnatyllin_227_orders_pk PRIMARY KEY (id_order);
+
+
+--
+-- TOC entry 4657 (class 2606 OID 17071)
+-- Name: zinnatyllin_227_products zinnatyllin_227_product_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.zinnatyllin_227_products
+    ADD CONSTRAINT zinnatyllin_227_product_pk PRIMARY KEY (id_product);
+
+
+--
+-- TOC entry 4655 (class 2606 OID 16762)
+-- Name: zinnatyllin_227_shop zinnatyllin_227_shop_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.zinnatyllin_227_shop
+    ADD CONSTRAINT zinnatyllin_227_shop_pk PRIMARY KEY (id_shop);
+
+
+--
+-- TOC entry 4660 (class 2606 OID 17085)
+-- Name: zinnatyllin_227_orders zinnatyllin_227_orders_zinnatyllin_227_products_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.zinnatyllin_227_orders
+    ADD CONSTRAINT zinnatyllin_227_orders_zinnatyllin_227_products_fk FOREIGN KEY (id_product) REFERENCES public.zinnatyllin_227_products(id_product) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4661 (class 2606 OID 17080)
+-- Name: zinnatyllin_227_orders zinnatyllin_227_orders_zinnatyllin_227_shop_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.zinnatyllin_227_orders
+    ADD CONSTRAINT zinnatyllin_227_orders_zinnatyllin_227_shop_fk FOREIGN KEY (id_shop) REFERENCES public.zinnatyllin_227_shop(id_shop) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+-- Completed on 2024-12-25 21:28:18
+
+--
+-- PostgreSQL database dump complete
+--
+
+-- Completed on 2024-12-25 21:28:18
+
+--
+-- PostgreSQL database cluster dump complete
+--
+
